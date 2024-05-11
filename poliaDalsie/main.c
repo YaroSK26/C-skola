@@ -1,83 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-/* */
 
-int main() {
-	srand(time(0));
-	
-	int maticaA[4][4];
-	int maticaB[4][4];
-	int maticaC[4][4];
-	int maticaD[4][4];
-	int cislo3 = 0;
-	
-	int riadok,stlpec;
-	
+int main(int argc, char *argv[]) {
+    srand(time(NULL));
 
-	
-	
-	for(riadok=0;riadok<4;riadok++){
-		for(stlpec=0;stlpec<4;stlpec++){
-			printf("zadaj do %i stlpca %i riadku \n ",stlpec+1,riadok+1);
-			scanf("%i",&maticaB[riadok][stlpec]);
-		}
-	printf("\n");
-	}
-	
-	printf("\n \n \n ");
-	
-	for(riadok=0;riadok<4;riadok++){
-		for(stlpec=0;stlpec<4;stlpec++){
-			maticaA[riadok][stlpec] = rand()%5+1;
-			printf("%3i",maticaA[riadok][stlpec]);
-		}
-	printf("\n");
-	}
-	
-	printf("\n \n \n ");
-	
-	for(riadok=0;riadok<4;riadok++){
-		for(stlpec=0;stlpec<4;stlpec++){
-			printf("%3i",maticaB[riadok][stlpec]);
-		}
-	printf("\n");
-	}
-	
-	printf("\n \n \n ");
-	
-	for(riadok=0;riadok<4;riadok++){
-		for(stlpec=0;stlpec<4;stlpec++){
-			maticaC[riadok][stlpec] = maticaA[riadok][stlpec] * 7;
-			printf("%3i",maticaC[riadok][stlpec]);
-		}
-	printf("\n");
-	}
-	
-	printf("\n \n \n ");
-	
-	for(riadok=0;riadok<4;riadok++){
-		for(stlpec=0;stlpec<4;stlpec++){
-			maticaD[riadok][stlpec] = maticaB[riadok][stlpec] - maticaA[riadok][stlpec];
-			printf("%3i",maticaD[riadok][stlpec]);
-		}
-	printf("\n");
-	}
-	
-	printf("\n \n \n ");
-	
-	for(riadok=0;riadok<4;riadok++){
-		for(stlpec=0;stlpec<4;stlpec++){
-			if(maticaA[riadok][stlpec]==3){
-				cislo3 ++;
-			}
-		}
-			
-	}	
-	
-	printf("\n \n \n ");
-	printf("V matici A sa cislo 3 nachadza %i",cislo3);
-	
-	
-	return 0;
+    int matica[5][5];
+    int i, j, cisloRiadku;
+
+    // Naplnìní matice náhodnými hodnotami
+    for(i = 0; i < 5; i++) {
+        for(j = 0; j < 5; j++) {
+            matica[i][j] = rand() % 7 - 3;
+        }
+    }
+
+    // Výpis matice
+    printf("Matice:\n");
+    for(i = 0; i < 5; i++) {
+        for(j = 0; j < 5; j++) {
+            printf("%3d ", matica[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("Zadej èíslo øádku a sloupce, které chceš vypsat (máme 5 øádkù a sloupcù): ");
+    scanf("%d", &cisloRiadku);
+
+    // Výpis hodnot zadaného øádku
+    printf("Hodnoty øádku %d: ", cisloRiadku);
+    for(j = 0; j < 5; j++) {
+        printf("%d ", matica[cisloRiadku - 1][j]);
+    }
+    printf("\n");
+
+    // Výpis hodnot zadaného sloupce
+    printf("Hodnoty sloupce %d: ", cisloRiadku);
+    for(i = 0; i < 5; i++) {
+        printf("%d ", matica[i][cisloRiadku - 1]);
+    }
+    printf("\n");
+
+    // Výpis diagonály zleva nahoru
+    printf("Hodnoty diagonály zleva nahoru: ");
+    for(i = 0; i < 5; i++) {
+        printf("%d ", matica[i][i]);
+    }
+    printf("\n");
+
+    // Výpis diagonály zprava dolù
+    printf("Hodnoty diagonály zprava dolù: ");
+    for(i = 0; i < 5; i++) {
+        printf("%d ", matica[i][4 - i]);
+    }
+    printf("\n");
+
+    // Sèítání hodnot v zadaném øádku
+    int sumaRiadku = 0;
+    for(j = 0; j < 5; j++) {
+        sumaRiadku += matica[cisloRiadku - 1][j];
+    }
+    printf("Souèet hodnot v øádku %d: %d\n", cisloRiadku, sumaRiadku);
+
+    // Odeèítání hodnot ve zvoleném sloupci
+    int rozdilSloupce = 0;
+    for(i = 0; i < 5; i++) {
+        rozdilSloupce -= matica[i][cisloRiadku - 1];
+    }
+    printf("Rozdíl hodnot ve sloupci %d: %d\n", cisloRiadku, rozdilSloupce);
+
+    return 0;
 }
+
